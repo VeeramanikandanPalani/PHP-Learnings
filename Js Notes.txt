@@ -1,0 +1,79 @@
+1.JS Scopes :
+
+- Block scope
+- Global scope
+- Functional scope
+
+2.Variables :
+
+- var — function‑scoped, hoisted
+- let — block‑scoped
+- const — block‑scoped, cannot be reassigned
+
+Eg:
+function test() {
+  if (true) {
+    var a = 10;
+    let b = 20;
+  }
+  console.log(a); // 10
+  console.log(b); // Error (b is block-scoped)
+}
+
+3.Hoisting
+
+- JavaScript moves variable and function declarations to the top of their scope before execution
+Eg:
+console.log(x); // undefined
+var x = 5;
+
+4.Closure
+
+- It allows a function to access a variable from its outer scope even after completing the execution of outer function
+
+5.Async/await
+
+- It allows to perform asynchronous operation
+Eg:
+async function getData() {
+  try {
+    const res = await fetchData();
+    console.log(res);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+6.Event loop & Call stack
+
+- Javascript handles asynchronous operation using this eventloop and cal stack.
+Eg:
+console.log("A");
+setTimeout(() => console.log("B"), 0);
+console.log("C");
+
+7.Destructure
+
+- Extract values from arrays/objects.
+
+8.Debouncing
+
+- Runs after user stops typing.
+
+9.Throttling
+
+- Runs at fixed intervals
+
+10.Currying
+
+- It transform a function with multiple arguments into nested functions
+
+Eg:
+function add(a) {
+  return function(b) {
+    return a + b;
+  };
+}
+
+add(5)(3); // 8
+
