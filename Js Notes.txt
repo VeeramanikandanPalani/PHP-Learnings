@@ -46,7 +46,7 @@ async function getData() {
 
 6.Event loop & Call stack
 
-- Javascript handles asynchronous operation using this eventloop and cal stack.
+- Javascript handles asynchronous operation using this eventloop and call stack.
 Eg:
 console.log("A");
 setTimeout(() => console.log("B"), 0);
