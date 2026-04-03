@@ -1,1 +1,179 @@
-ghj
+Laravel
+
+#Project Creation Ways
+
+#composer create-project laravel/laravel myapp
+
+#composer global require laravel/laravel
+then 
+#laravel new myapp
+
+#Routes
+Route::get('/',function(){
+  return view('welcome')
+});
+
+#Route prefix
+Route::prefix('user')->group(function(){
+  Route::get('list',function(){
+    return view('welcome);
+  })->name('user-list');
+});
+
+#Route parameter
+Route::get('student/{id} ',function(){
+    return view('welcome);
+})->name('user-list');
+
+Route::fallback(function(){
+  return "Route not available'; 
+});
+
+Route::controller(StudentController::class')->group(function(){
+  Route:get('test','method_name');
+  Route:get('test/{id}/{name}','method_name'); //we can directly acces params in controller
+});
+
+#Access to view
+Route::view('contact','contact');
+
+#Passing data via view
+Route:get('about-us',function(){
+  $name ='Veera'
+  return view('contact')->with('name'$name); //Method 1
+  return view('contact',compact('name'))// Method 2
+  return view('contact',['name'=>$name])// Method 3
+});
+
+#Layouts
+
+#create base layout file like app.blade.php under layouts folder
+
+@yield('styles');
+@yield('content');
+#Usage
+@section('styles');
+@endsection
+
+
+#Controllers
+- Invokable controller
+- Resource controller
+
+php artisan make:controller TestController --invokable //Only one method will be there
+Route::get('contact',TestController::class);//No mthod name needed
+
+php artisan make:controller ResourceController --resource  //Resource controller
+Route::resource('contact',ResourceController::class);//No mthod name needed
+
+#Migration
+php artisan migrate - run migration
+php artisan make:migration create_students_table // This is the proper way for creating migration
+php artisan make:migration addDateOfBirthToStudents --table=students //For adding missing columns
+
+#Rollback our latest migration
+php artisan migrate:rollback //Reverse latest one
+php artisan migrate:rollback --step=2 //It will remove last 2 migrations
+php artisan migrate:rollback --step=3 //Revert last 3 migrations
+ 
+#Models
+php artisan make:model Student //Create command
+php artisan make:model Teachers --mc //Create command with migration and controller
+
+Model::all();
+
+#Insert
+$item = new Teachers();
+$item->name = 'Test name';
+$item->save();
+
+#Fetch
+$item = Teachers::findOfFail($id);
+
+#Update
+$item = Teachers::findOrFail($id);
+$item->name = 'Updated name';
+$item->update();
+
+#Delete
+$item = Teachers::findOrFail($id);
+$item->delete();
+
+#Factories
+- php artisan make:factory StudentFactory --model=Student
+- Add use HasFactory inside model
+return[
+  'name'=>$this->faker->name(),
+  'email'=>$this->faker->unique()->safeEmail,
+  'age'=>$this->faker->numberBetween(10,25),
+  'date_of_birth'=>$this->faker->date('Y-m-d'),
+  'gender'=>$this->faker->randomElement(['m','f'])
+] //Sample factory
+- Goto DatabaseSeeder.php file and under run method add below lines
+- Student::factory(100)->create();
+- Finally, run php artisan db:seed
+
+#Seeder
+- php artisan make:seeder CountriesSeeder
+- Create migration schema and run migration then run it
+- Open seeder file and create insert data array then run DB::table('countries')->insert($InsertData);
+- Finally, run php artisan db:seed --class=CountriesSeeder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
