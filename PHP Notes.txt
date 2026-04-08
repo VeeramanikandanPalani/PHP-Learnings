@@ -119,17 +119,73 @@ return[
 - Open seeder file and create insert data array then run DB::table('countries')->insert($InsertData);
 - Finally, run php artisan db:seed --class=CountriesSeeder
 
+#Raw SQL vs Query Builder vs Eloquent: Which One Should You Use?
+Raw SQL - High risk - use when need complex queries and good performance
+Query Builder - Protect against sql injection - 
+ORM - Highly secure - use when working with models
+
+#Insert using Query Builder
+
+#For single record insertion
+DB::table('student')->insert([
+  'name'=>'veera',
+  'age'=>14
+]);
+
+#For bulk record insertion
+DB::table('student')->insert([
+  [
+    'name'=>'veera',
+    'age'=>14
+  ],
+  [
+    'name'=>'mithra',
+    'age'=>1
+  ],
+]);
+
+#Fetch data using Query Builder
+$Data = DB::table('students')->get();
+$Data = DB::table('students')->first();
+$Data = DB::table('students')
+        ->select('name','age')
+        ->where('id','>',1)
+        ->get();
+
+#Update using query builder
+DB::table('students')->where('id',203)->update('name','updated name');
+
+#Delete using query builder
+DB::table('students')->where('id',203)->delete();
 
 
+#Insert using Model
+$User = new User();
+$User->name = 'veera';
+$User->age =25;
+$User->save();
 
+#Fetch using Model
+$Data = User::all();
+$Data = User::find(1)->get();
 
+#Update using Model
+$Data = User::find(23);
+$Data->name = 'updated_name';
+$Data->update();
 
+#Delete using Model
+$Data = User::findOrFail(23);
+$Data->delete();
 
-
-
-
-
-
+$Data = User::where('id',4)->get();
+$Data = User::where('age','>=',20)
+        ->where(function($query){
+          ->where('score','>',50)
+        })
+        ->get();
+$Data = User::whereBetween('id',[10,25])->get();
+$Data = User::WhereIn('id',[1,2,3])->get();
 
 
 
