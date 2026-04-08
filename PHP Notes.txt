@@ -188,7 +188,25 @@ $Data = User::whereBetween('id',[10,25])->get();
 $Data = User::WhereIn('id',[1,2,3])->get();
 
 
+#WhereAny
+$Data = User::WhereAny(['age','height'],'>',24)->get(); -- Anyone should be greater than 24
 
+#WhereAll
+$Data = User::WhereAll(['age','height'],'>',24)->get(); -- Al should be greater than 24
+
+#Query Scope
+public function scopeMale($query){
+  $query->where('gender','male');
+}
+User::male()->get(); //Scope utilization in model
+
+#Soft Delete
+step 1 : add use softdeletes; in model
+when you delete record deleted_at will be updated
+
+$Data = User::onlyTrashed()->get();
+$Data = User::withTrashed()->get();
+$Data = User::withTrashed()->find(1)->restore();
 
 
 
