@@ -208,10 +208,12 @@ $Data = User::onlyTrashed()->get();
 $Data = User::withTrashed()->get();
 $Data = User::withTrashed()->find(1)->restore();
 
-
-
-
-
+#Search bar implementation
+$Data = User::when($request->search,function($query)use($request){
+  ->whereAny(['name','age'],'like','%'.$request->search.'%')->get(); //If you want to add paginate use paginate() instead of get()
+})
+#In view create on div with name of paginationDiv and with in that div add the below lines
+{{ $students->links('paginate::bootstrap-5') }}
 
 
 
