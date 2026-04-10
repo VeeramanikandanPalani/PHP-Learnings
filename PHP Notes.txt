@@ -235,6 +235,29 @@ public function insert(AddFormRequest $request){
 <input type="text" name="firstname" value="{{ old('firstname') }}">
 
 
+#Relationships
+#One To One
+
+public function Student(){
+  return $this->hasOne('Student::class','student_id');
+}
+public function Student(){
+  return $this->belongsTo('Student::class','student_id');
+}
+#One To Many
+public function Student(){
+  return $this->hasMany('Student::class','student_id');
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
