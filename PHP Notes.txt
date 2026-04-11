@@ -248,6 +248,61 @@ public function Student(){
 public function Student(){
   return $this->hasMany('Student::class','student_id');
 }
+#Many To Many
+public function Student(){
+  return $this->belongsToMany('Student::class','pivot_table_name','student_id','class_id');
+}
+
+#Authendication - Laravel UI
+Step 1 : composer require laravel/ui
+Step 2 : php artisan ui bootstrap --auth
+Step 3 : npm install
+Step 4 : composer run dev
+
+# Laravel Breeze
+Step 1 : composer require laravel/breeze --dev
+Step 2 : php artisan breeze:install
+Step 3 : php artisan migrate
+Step 4 : npm install
+Step 5 : composer run dev
+
+#Middleware
+Route specific middleware - specific to route
+Global middleware - will run on all routes
+Terminable middleware - will run after response
+
+php artisan make:middleware RouteMiddleware;
+
+bootstrap/app file
+
+#Route middleware
+$middleware->aliases([
+  'teachers' =>RouteMiddleware::class
+]);
+#Global middleware
+$middleware->use(
+  [
+    GlobalMiddleware::class
+  ]
+);
+
+#Terminable middleware
+public function terminate($request,$response){
+  Log::info('request log',[
+    'ip'=>'5.87.897.9'
+    'method'=>$request->method()
+  ]);
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
